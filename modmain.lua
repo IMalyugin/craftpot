@@ -191,5 +191,3 @@ AddSimPostInit(OnSimLoad) -- fires before game init
 AddGamePostInit(OnGameLoad) -- fires last, unless it is first game launch in DS, then it fires first
 AddPlayerPostInit(OnPlayerLoad) -- fire last in DST, but first in DS, i think
 AddClassPostConstruct("widgets/controls", ControlsPostInit)
-
--- sadly we have to try every prefab ingame, since we just can't bind events onto postinit of stewer.host prefab

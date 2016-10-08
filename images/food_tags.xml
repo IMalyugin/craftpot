@@ -2,7 +2,7 @@
   <Elements>
 
   <Element name="meat.tex" u1="0" u2="0.125" v1="0.875" v2="1" />
- 
+
   <Element name="veggie.tex" u1="0.125" u2="0.25" v1="0.875" v2="1" />
   <Element name="fish.tex" u1="0.25" u2="0.375" v1="0.875" v2="1" />
   <Element name="sweetener.tex" u1="0.375" u2="0.5" v1="0.875" v2="1" />
@@ -22,13 +22,13 @@
 
 
   <Element name="dairy.tex" u1="0" u2="0.125" v1="0.5" v2="0.625" />
- 
+
   <Element name="fat.tex" u1="0.125" u2="0.25" v1="0.5" v2="0.625" />
- 
+
 
   <Element name="unknown.tex" u1="0.375" u2="0.5" v1="0.5" v2="0.625" />
 
-  <Element name="alkaline.tex" u1="0" u2="0.125" v1="0.375" v2="05" />
+  <Element name="alkaline.tex" u1="0" u2="0.125" v1="0.375" v2="0.5" />
   <Element name="flora.tex" u1="0.125" u2="0.25" v1="0.375" v2="0.5" />
   <Element name="fungus.tex" u1="0.25" u2="0.375" v1="0.375" v2="0.5" />
   <Element name="leek.tex" u1="0.375" u2="0.5" v1="0.375" v2="0.5" />
@@ -62,7 +62,7 @@
   <Element name="cactus.tex" u1="0.5" u2="0.625" v1="0" v2="0.125" />
 
   <Element name="inedible_alt.tex" u1="0.875" u2="1" v1="0" v2="0.125" />
-    
-  
+
+
 </Elements>
 </Atlas>

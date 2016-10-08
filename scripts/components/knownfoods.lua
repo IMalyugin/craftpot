@@ -90,6 +90,8 @@ end
 function KnownFoods:_Composition(list) -- only compose 1 level, because otherwise it will be too complicated for an ordinary person comprehension
   local mix = {} -- initially an AND
   local sets = {} -- specific format {type:'name'/'tag'}_{name/tag}_{amt} = {mix={name/tag={name/tag},amt={amt}}, used={#1,#2,#3}}
+
+	local max_used=0,max_amt=0
   -- first read the recipes in a huge line
   for idx,recipe in ipairs(list) do
     --local branch = {}
@@ -99,6 +101,11 @@ function KnownFoods:_Composition(list) -- only compose 1 level, because otherwis
       local used = sets[key] and sets[key].used or {}
       table.insert(used,idx)
       sets[key] = {mix={name=name,amt=amt},used=used}
+			if used >= max_used then
+				max_used = used
+				if amt > max_amt then
+					max_amt = amt
+				end
     end
     for tag, amt in pairs(recipe.tags) do
       --table.insert(branch,{tag=tag,amt=amt})
@@ -124,6 +131,8 @@ function KnownFoods:_Composition(list) -- only compose 1 level, because otherwis
       table.insert(uniques, data)
     end
   end
+
+	if #uniques == #list
 
   --print("~~~"..#uniques.." / "..#mix)
   if #uniques > 0 then

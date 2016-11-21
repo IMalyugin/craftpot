@@ -101,7 +101,7 @@ local function ControlsPostInit(self)
 end
 
 local function ContainerPostConstruct(inst)
-	if not inst.type or inst.type ~= "cooker" then
+	if not inst.type or inst.type ~= "cooker" or not inst.widget or not inst.widget.buttoninfo then
 		return false
 	end
 
@@ -180,8 +180,9 @@ if IsClientSim() then
 	AddClassPostConstruct("components/container_replica",  ContainerPostConstruct)
 else
 	local function PrefabPostInitAny(inst)
-		if not inst.components.stewer then return end
-		ContainerPostConstruct(inst.components.container)
+		if inst.components.stewer then
+			ContainerPostConstruct(inst.components.container)
+		end
 	end
 	AddPrefabPostInitAny(PrefabPostInitAny)
 end

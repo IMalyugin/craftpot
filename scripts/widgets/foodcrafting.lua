@@ -267,13 +267,18 @@ end
 function FoodCrafting:OnControl(control, down)
   if FoodCrafting._base.OnControl(self, control, down) then return true end
 
-  if down and self.focus then
-    if control == CONTROL_MAP_ZOOM_IN then
-      self:ScrollDown()
-      return true
-    elseif control == CONTROL_MAP_ZOOM_OUT then
-      self:ScrollUp()
-      return true
+  if down then
+    if self._focused then
+      if control == CONTROL_MAP_ZOOM_IN then
+        self:ScrollDown()
+        return true
+      elseif control == CONTROL_MAP_ZOOM_OUT then
+        self:ScrollUp()
+        return true
+      end
+    end
+    if control == CONTROL_SECONDARY then
+      self._focused = not self._focused
     end
   end
 end

@@ -101,7 +101,7 @@ local function ControlsPostInit(self)
 end
 
 local function ContainerPostConstruct(inst)
-	if not inst.type or inst.type ~= "cooker" or not inst.widget or not inst.widget.buttoninfo then
+	if not inst.type or inst.type ~= "cooker" or IsDST() and (not inst.widget or not inst.widget.buttoninfo) then
 		return false
 	end
 

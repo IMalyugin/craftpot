@@ -280,7 +280,7 @@ function FoodCrafting:OnControl(control, down)
       end
     end
 
-    if control == CONTROL_SECONDARY then
+    if control == CONTROL_CONTROLLER_ALTACTION then
       if self._focused then
         self._focused = false
         self:SetScale(Vector3(0.50, 0.50, 0.50))

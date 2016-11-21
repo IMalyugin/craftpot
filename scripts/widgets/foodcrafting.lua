@@ -145,9 +145,11 @@ function FoodCrafting:Open(cooker_inst)
   self._open = true
 	self:Enable()
   self:Show()
-
 	--if cooker_inst ~= self.last_cooker or self.sortneeded or self.filterneeded then
-  	self:SortFoods()
+  self:SortFoods()
+  if TheInput:ControllerAttached() then
+    self:FoodFocus(2)
+  end
 	--end
 end
 
@@ -277,32 +279,35 @@ function FoodCrafting:OnControl(control, down)
         return true
       end
     end
+
     if control == CONTROL_SECONDARY then
-      self._focused = not self._focused
+      if self._focused then
+        self._focused = false
+        self:SetScale(Vector3(0.50, 0.50, 0.50))
+      else
+        self._focused = true
+        self:SetScale(Vector3(0.54, 0.54, 0.54))
+      end
     end
   end
 end
 
 function FoodCrafting:ScrollUp()
-  if not IsPaused() then
-    local oldidx = self.idx
-    self.idx = self.idx + 1
-    self:UpdateFoodSlots()
-    if self.idx ~= oldidx then
-      self.owner.SoundEmitter:PlaySound("dontstarve/HUD/craft_up")
-    end
+  local oldidx = self.idx
+  self.idx = self.idx + 1
+  self:UpdateFoodSlots()
+  if self.idx ~= oldidx then
+    self.owner.SoundEmitter:PlaySound("dontstarve/HUD/craft_up")
   end
   --self:UpdateRecipes()
 end
 
 function FoodCrafting:ScrollDown()
-  if not IsPaused() then
-    local oldidx = self.idx
-    self.idx = self.idx - 1
-    self:UpdateFoodSlots()
-    if self.idx ~= oldidx then
-        self.owner.SoundEmitter:PlaySound("dontstarve/HUD/craft_down")
-    end
+  local oldidx = self.idx
+  self.idx = self.idx - 1
+  self:UpdateFoodSlots()
+  if self.idx ~= oldidx then
+      self.owner.SoundEmitter:PlaySound("dontstarve/HUD/craft_down")
   end
 end
 
@@ -314,7 +319,6 @@ end
 function FoodCrafting:OnLoseFocus()
   FoodCrafting._base.OnLoseFocus(self)
 	self._focused = false
-
 	--[[if self.focusItem then
 		self.focusItem:HidePopup()
 		self.focusItem = nil

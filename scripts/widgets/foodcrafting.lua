@@ -37,7 +37,7 @@ local FoodCrafting = Class(Widget, function(self, num_slots)
   --end
 
 	self.idx = -1
-  self._overflow = 1
+  self._overflow = Input:ControllerAttached() and 3 or 1
 
   self.open = false
 end)
@@ -123,7 +123,7 @@ end
 
 function FoodCrafting:FoodFocus(slot_idx)
 	local focusIdx = slot_idx+self.idx
-	if focusIdx <= 0 or focusIdx > #self.selfoods then
+	if focusIdx < 1 or focusIdx > #self.selfoods then
 		return false
 	end
 	local focusItem = self.selfoods[focusIdx]
@@ -149,7 +149,7 @@ function FoodCrafting:Open(cooker_inst)
 	--if cooker_inst ~= self.last_cooker or self.sortneeded or self.filterneeded then
   self:SortFoods()
   if TheInput:ControllerAttached() then
-    self:FoodFocus(2)
+    self:FoodFocus(4)
   end
 	--end
 end
@@ -225,21 +225,21 @@ function FoodCrafting:UpdateFoodSlots()
 		foodslot:ClearFood()
 	end
 
-	if self.idx > #self.selfoods - (self.num_slots )+1  then
-		self.idx = #self.selfoods - (self.num_slots)+1
+	if self.idx > #self.selfoods - (self.num_slots ) + self._overflow  then
+		self.idx = #self.selfoods - (self.num_slots) + self._overflow
 	end
 
-  if self.idx < -1 then
-    self.idx = -1
+  if self.idx < -self._overflow then
+    self.idx = -self._overflow
   end
 
-	if self.idx > -1 then
+	if self.idx >  -self._overflow then
 		self.downbutton:Enable()
 	else
 		self.downbutton:Disable()
 	end
 
-	if #self.selfoods < self.idx + self.num_slots then
+	if #self.selfoods < self.idx + self.num_slots + self._overflow then
 		self.upbutton:Disable()
     else
 		self.upbutton:Enable()
@@ -277,10 +277,10 @@ function FoodCrafting:OnControl(control, down)
 
   if down then
     if self._focused then
-      if control == CONTROL_MAP_ZOOM_IN or control == CONTROL_INVENTORY_UP then
+      if control == CONTROL_MAP_ZOOM_IN or control == CONTROL_MOVE_UP then
         self:ScrollDown()
         return true
-      elseif control == CONTROL_MAP_ZOOM_OUT or control == CONTROL_INVENTORY_DOWN then
+      elseif control == CONTROL_MAP_ZOOM_OUT or control == CONTROL_MOVE_DOWN then
         self:ScrollUp()
         return true
       end

@@ -187,7 +187,7 @@ else
 	AddPrefabPostInitAny(PrefabPostInitAny)
 end
 
-if GLOBAL.TheInput:ControllerAttached() or true then
+if GLOBAL.TheInput:ControllerAttached() then
 	AddClassPostConstruct("screens/playerhud", function(inst)
 		old_on_control = inst.OnControl
 		old_open_controller_inventory = inst.OpenControllerInventory
@@ -206,11 +206,11 @@ if GLOBAL.TheInput:ControllerAttached() or true then
 	end)
 
 	AddClassPostConstruct("widgets/inventorybar", function(inst)
-
-		for idx,fn in ipairs({'CursorUp', 'CursorDown', 'CursorLeft', 'CursorRight'}) do
+		for idx,fn in ipairs({'CursorUp', 'CursorDown'}) do -- 'CursorLeft', 'CursorRight'
 			local old_cursor_action = inst[fn]
 			inst[fn] = function(self)
-				if not inst.owner.HUD.controls.foodcrafting:IsFocused() then
+				if not inst.owner.HUD.controls.foodcrafting:IsFocused()
+					or inst.owner.HUD.controls.foodcrafting:IsOpen() and (TheInput:IsControlPressed(CONTROL_INVENTORY_LEFT) or TheInput:IsControlPressed(CONTROL_INVENTORY_LEFT)) then
 					old_cursor_action(self)
 				end
 			end

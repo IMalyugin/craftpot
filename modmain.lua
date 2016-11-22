@@ -196,7 +196,7 @@ if GLOBAL.TheInput:ControllerAttached() then
 			end
 		end
 
-		old_on_control(self, control, down)
+		old_on_control = inst.OnControl
 		inst.OnControl = function(self, control, down)
 			old_on_control(self, control, down)
 			if inst.controls.foodcrafting:IsOpen() then

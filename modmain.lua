@@ -199,7 +199,7 @@ if GLOBAL.TheInput:ControllerAttached() or true then
 
 		inst.OnControl = function(self, control, down)
 			old_on_control(self, control, down)
-			if inst.controls.foodcrafting:IsOpen() then
+			if inst.controls.foodcrafting:IsFocused() then
 				inst.controls.foodcrafting:OnControl(control, down)
 			end
 		end

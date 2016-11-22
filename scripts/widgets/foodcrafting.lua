@@ -37,6 +37,7 @@ local FoodCrafting = Class(Widget, function(self, num_slots)
   --end
 
 	self.idx = -1
+  self._overflow = 1
 
   self.open = false
 end)
@@ -159,6 +160,7 @@ end
 
 function FoodCrafting:Close(cooker_inst)
   self._open = false
+  self._focused = false
   self:Disable()
   self:Hide()
 end

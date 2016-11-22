@@ -189,14 +189,14 @@ end
 
 if GLOBAL.TheInput:ControllerAttached() then
 	AddClassPostConstruct("screens/playerhud", function(inst)
-		old_open_controller_inventory = inst.OpenControllerInventory
+		local old_open_controller_inventory = inst.OpenControllerInventory
 		inst.OpenControllerInventory = function(self)
 			if not inst.controls.foodcrafting:IsOpen() then
 				old_open_controller_inventory(self)
 			end
 		end
 
-		old_on_control = inst.OnControl
+		local old_on_control = inst.OnControl
 		inst.OnControl = function(self, control, down)
 			old_on_control(self, control, down)
 			if inst.controls.foodcrafting:IsOpen() then

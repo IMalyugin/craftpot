@@ -147,7 +147,7 @@ function FoodCrafting:Open(cooker_inst)
   self:Show()
 	--if cooker_inst ~= self.last_cooker or self.sortneeded or self.filterneeded then
   self:SortFoods()
-  if GLOBAL.TheInput:ControllerAttached() then
+  if TheInput:ControllerAttached() then
     self:FoodFocus(2)
   end
 	--end
@@ -286,7 +286,7 @@ function FoodCrafting:OnControl(control, down)
     if control == CONTROL_OPEN_INVENTORY then
       if self._focused then
         self._focused = false
-        self.focusItem:SetScale(Vector3(1.1, 1.1, 1.1))
+        --self.focusItem:SetScale(Vector3(1.1, 1.1, 1.1))
         self:SetScale(Vector3(0.5, 0.5, 0.5))
       else
         self._focused = true

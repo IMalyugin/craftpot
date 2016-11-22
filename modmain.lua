@@ -206,11 +206,15 @@ if GLOBAL.TheInput:ControllerAttached() then
 	end)
 
 	AddClassPostConstruct("widgets/inventorybar", function(inst)
-		for idx,fn in ipairs({'CursorUp', 'CursorDown'}) do -- 'CursorLeft', 'CursorRight'
+		for idx,fn in ipairs({'CursorUp', 'CursorDown', 'CursorLeft', 'CursorRight'}) do
 			local old_cursor_action = inst[fn]
 			inst[fn] = function(self)
 				if not inst.owner.HUD.controls.foodcrafting:IsFocused()
-					or inst.owner.HUD.controls.foodcrafting:IsOpen() and (TheInput:IsControlPressed(CONTROL_INVENTORY_LEFT) or TheInput:IsControlPressed(CONTROL_INVENTORY_LEFT)) then
+					or inst.owner.HUD.controls.foodcrafting:IsOpen()
+					and (TheInput:IsControlPressed(CONTROL_INVENTORY_LEFT)
+						or TheInput:IsControlPressed(CONTROL_INVENTORY_RIGHT)
+						or TheInput:IsControlPressed(CONTROL_INVENTORY_UP)
+						or TheInput:IsControlPressed(CONTROL_INVENTORY_DOWN)) then
 					old_cursor_action(self)
 				end
 			end

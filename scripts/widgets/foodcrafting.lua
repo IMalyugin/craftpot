@@ -275,10 +275,10 @@ function FoodCrafting:OnControl(control, down)
 
   if down then
     if self._focused then
-      if control == CONTROL_MAP_ZOOM_IN then
+      if control == CONTROL_MAP_ZOOM_IN or control == CONTROL_INVENTORY_UP then
         self:ScrollDown()
         return true
-      elseif control == CONTROL_MAP_ZOOM_OUT then
+      elseif control == CONTROL_MAP_ZOOM_OUT or control == CONTROL_INVENTORY_DOWN then
         self:ScrollUp()
         return true
       end

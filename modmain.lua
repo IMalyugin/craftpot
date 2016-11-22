@@ -204,6 +204,19 @@ if GLOBAL.TheInput:ControllerAttached() or true then
 			end
 		end
 	end)
+
+	AddClassPostConstruct("widgets/inventorybar", function(inst)
+
+		for idx,fn in ipairs('CursorUp', 'CursorDown', 'CursorLeft', 'CursorRight') do
+			local old_cursor_action = inst[fn]
+			inst[fn] = function(self)
+				if not inst.owner.HUD.controls.foodcrafting:IsOpen() then
+					old_cursor_action(self)
+				end
+			end
+		end
+	end)
+
 end
 
 -- these three loads race each other, last one gets to launch OnAfterLoad

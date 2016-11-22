@@ -199,7 +199,7 @@ if GLOBAL.TheInput:ControllerAttached() or true then
 
 		inst.OnControl = function(self, control, down)
 			old_on_control(self, control, down)
-			if inst.controls.foodcrafting:IsFocused() then
+			if inst.controls.foodcrafting:IsOpen() then
 				inst.controls.foodcrafting:OnControl(control, down)
 			end
 		end
@@ -210,7 +210,7 @@ if GLOBAL.TheInput:ControllerAttached() or true then
 		for idx,fn in ipairs({'CursorUp', 'CursorDown', 'CursorLeft', 'CursorRight'}) do
 			local old_cursor_action = inst[fn]
 			inst[fn] = function(self)
-				if not inst.owner.HUD.controls.foodcrafting:IsOpen() then
+				if not inst.owner.HUD.controls.foodcrafting:IsFocused() then
 					old_cursor_action(self)
 				end
 			end

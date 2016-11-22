@@ -196,7 +196,7 @@ if GLOBAL.TheInput:ControllerAttached() then
 			end
 		end
 
-		old_on_control = inst.OnControl
+		old_on_control(self, control, down)
 		inst.OnControl = function(self, control, down)
 			old_on_control(self, control, down)
 			if inst.controls.foodcrafting:IsOpen() then
@@ -205,7 +205,7 @@ if GLOBAL.TheInput:ControllerAttached() then
 		end
 	end)
 
- --[[AddClassPostConstruct("widgets/inventorybar", function(inst)
+	AddClassPostConstruct("widgets/inventorybar", function(inst)
 		for idx,fn in ipairs({'CursorUp', 'CursorDown', 'CursorLeft', 'CursorRight'}) do
 			local old_cursor_action = inst[fn]
 			inst[fn] = function(self)
@@ -214,7 +214,7 @@ if GLOBAL.TheInput:ControllerAttached() then
 				end
 			end
 		end
-	end)]]
+	end)
 
 end
 

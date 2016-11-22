@@ -39,7 +39,7 @@ local FoodCrafting = Class(Widget, function(self, num_slots)
 	self.idx = -1
   self._overflow = Input:ControllerAttached() and 3 or 1
 
-  self.open = false
+  self._open = false
 end)
 
 function FoodCrafting:OnAfterLoad(config, owner)

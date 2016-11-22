@@ -207,7 +207,7 @@ if GLOBAL.TheInput:ControllerAttached() or true then
 
 	AddClassPostConstruct("widgets/inventorybar", function(inst)
 
-		for idx,fn in ipairs('CursorUp', 'CursorDown', 'CursorLeft', 'CursorRight') do
+		for idx,fn in ipairs({'CursorUp', 'CursorDown', 'CursorLeft', 'CursorRight'}) do
 			local old_cursor_action = inst[fn]
 			inst[fn] = function(self)
 				if not inst.owner.HUD.controls.foodcrafting:IsOpen() then

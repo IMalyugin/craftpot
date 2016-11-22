@@ -209,12 +209,7 @@ if GLOBAL.TheInput:ControllerAttached() then
 		for idx,fn in ipairs({'CursorUp', 'CursorDown', 'CursorLeft', 'CursorRight'}) do
 			local old_cursor_action = inst[fn]
 			inst[fn] = function(self)
-				if not inst.owner.HUD.controls.foodcrafting:IsFocused()
-					or inst.owner.HUD.controls.foodcrafting:IsOpen()
-					and (TheInput:IsControlPressed(CONTROL_INVENTORY_LEFT)
-						or TheInput:IsControlPressed(CONTROL_INVENTORY_RIGHT)
-						or TheInput:IsControlPressed(CONTROL_INVENTORY_UP)
-						or TheInput:IsControlPressed(CONTROL_INVENTORY_DOWN)) then
+				if not inst.owner.HUD.controls.foodcrafting:IsFocused() then
 					old_cursor_action(self)
 				end
 			end

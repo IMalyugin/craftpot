@@ -187,6 +187,25 @@ else
 	AddPrefabPostInitAny(PrefabPostInitAny)
 end
 
+if GLOBAL.TheInput:ControllerAttached() then
+	AddClassPostConstruct("screens/playerhud", function(inst)
+		old_on_control = inst.OnControl
+		old_open_controller_inventory = inst.OpenControllerInventory
+		inst.OpenControllerInventory = function(self)
+			if not inst.controls.foodcrafting:IsOpen() then
+				old_open_controller_inventory(self)
+			end
+		end
+
+		inst.OnControl = function(self, control, down)
+			old_on_control(self, control, down)
+			if inst.controls.foodcrafting:IsOpen() then
+				inst.controls.foodcrafting:OnControl(control, down)
+			end
+		end
+	end)
+end
+
 -- these three loads race each other, last one gets to launch OnAfterLoad
 AddSimPostInit(OnSimLoad) -- fires before game init
 AddGamePostInit(OnGameLoad) -- fires last, unless it is first game launch in DS, then it fires first

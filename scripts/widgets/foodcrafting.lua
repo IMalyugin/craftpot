@@ -93,10 +93,10 @@ function FoodCrafting:SetOrientation(horizontal)
     end
 
 		if not self.horizontal then
-      if TheInput:IsControllerAttached() then
+      if TheInput:ControllerAttached() then
         self:SetPosition(305,0,0)
       else
-        self:SetPosition(280,0,0)        
+        self:SetPosition(280,0,0)
       end
 	  end
 

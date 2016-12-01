@@ -55,6 +55,56 @@ local _GameLoaded = false
 local _ControlsLoaded = false
 local _PlayerLoaded = false
 
+local function AttachControllerHandles()
+	AddClassPostConstruct("screens/playerhud", function(inst)
+		local old_open_controller_inventory = inst.OpenControllerInventory
+		inst.OpenControllerInventory = function(self)
+			if not inst.controls.foodcrafting:IsOpen() then
+				old_open_controller_inventory(self)
+			end
+		end
+
+		local old_on_control = inst.OnControl
+		inst.OnControl = function(self, control, down)
+			old_on_control(self, control, down)
+			if inst.controls.foodcrafting:IsOpen() then
+				inst.controls.foodcrafting:OnControl(control, down)
+			end
+		end
+	end)
+
+	AddClassPostConstruct("widgets/inventorybar", function(inst)
+		--[[local old_cursor_up = inst.CursorUp
+		inst.CursorUp = function(self)
+			if not inst.owner.HUD.controls.foodcrafting:IsFocused() || TheInput:IsControlPressed(CONTROL_INVENTORY_UP) then
+				old_cursor_up(self)
+			end
+		end
+
+		local old_cursor_down = inst.CursorDown
+		inst.CursorDown = function(self)
+			if not inst.owner.HUD.controls.foodcrafting:IsFocused() || TheInput:IsControlPressed(CONTROL_INVENTORY_UP) then
+				old_cursor_down(self)
+			end
+		end
+
+		local old_cursor_left = inst.CursorLeft
+		inst.CursorLeft = function(self)
+			if not inst.owner.HUD.controls.foodcrafting:IsFocused() || TheInput:IsControlPressed(CONTROL_INVENTORY_UP) then
+				old_cursor_left(self)
+			end
+		end
+
+		local old_cursor_right = inst.CursorRight
+		inst.CursorRight = function(self)
+			if not inst.owner.HUD.controls.foodcrafting:IsFocused() || TheInput:IsControlPressed(CONTROL_INVENTORY_UP) then
+				old_cursor_right(self)
+			end
+		end]]
+	end)
+
+end
+
 local function OnAfterLoad(controls)
 	if _GameLoaded ~= true or _SimLoaded ~= true or _PlayerLoaded ~= true or _ControlsLoaded ~= true then
 		return false
@@ -189,56 +239,6 @@ else
 		end
 	end
 	AddPrefabPostInitAny(PrefabPostInitAny)
-end
-
-local function AttachControllerHandles()
-	AddClassPostConstruct("screens/playerhud", function(inst)
-		local old_open_controller_inventory = inst.OpenControllerInventory
-		inst.OpenControllerInventory = function(self)
-			if not inst.controls.foodcrafting:IsOpen() then
-				old_open_controller_inventory(self)
-			end
-		end
-
-		local old_on_control = inst.OnControl
-		inst.OnControl = function(self, control, down)
-			old_on_control(self, control, down)
-			if inst.controls.foodcrafting:IsOpen() then
-				inst.controls.foodcrafting:OnControl(control, down)
-			end
-		end
-	end)
-
-	AddClassPostConstruct("widgets/inventorybar", function(inst)
-		--[[local old_cursor_up = inst.CursorUp
-		inst.CursorUp = function(self)
-			if not inst.owner.HUD.controls.foodcrafting:IsFocused() || TheInput:IsControlPressed(CONTROL_INVENTORY_UP) then
-				old_cursor_up(self)
-			end
-		end
-
-		local old_cursor_down = inst.CursorDown
-		inst.CursorDown = function(self)
-			if not inst.owner.HUD.controls.foodcrafting:IsFocused() || TheInput:IsControlPressed(CONTROL_INVENTORY_UP) then
-				old_cursor_down(self)
-			end
-		end
-
-		local old_cursor_left = inst.CursorLeft
-		inst.CursorLeft = function(self)
-			if not inst.owner.HUD.controls.foodcrafting:IsFocused() || TheInput:IsControlPressed(CONTROL_INVENTORY_UP) then
-				old_cursor_left(self)
-			end
-		end
-
-		local old_cursor_right = inst.CursorRight
-		inst.CursorRight = function(self)
-			if not inst.owner.HUD.controls.foodcrafting:IsFocused() || TheInput:IsControlPressed(CONTROL_INVENTORY_UP) then
-				old_cursor_right(self)
-			end
-		end]]
-	end)
-
 end
 
 -- these three loads race each other, last one gets to launch OnAfterLoad

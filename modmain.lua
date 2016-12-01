@@ -69,6 +69,10 @@ local function OnAfterLoad(controls)
 			controls.foodcrafting:OnAfterLoad(config, player)
 		end
 	end
+
+	if GLOBAL.TheInput:ControllerAttached() then
+		AttachControllerHandles()
+	end
 end
 
 local function OnPlayerLoad(player)
@@ -187,7 +191,7 @@ else
 	AddPrefabPostInitAny(PrefabPostInitAny)
 end
 
-if GLOBAL.Input:ControllerAttached() or GLOBAL.TheInput:ControllerAttached() or TheInput:ControllerAttached() then
+local function AttachControllerHandles()
 	AddClassPostConstruct("screens/playerhud", function(inst)
 		local old_open_controller_inventory = inst.OpenControllerInventory
 		inst.OpenControllerInventory = function(self)

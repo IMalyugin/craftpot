@@ -93,8 +93,11 @@ function FoodCrafting:SetOrientation(horizontal)
     end
 
 		if not self.horizontal then
-	    self:SetPosition(305,0,0)
-			self:SetPosition(280,0,0)
+      if TheInput:IsControllerAttached() then
+        self:SetPosition(305,0,0)
+      else
+        self:SetPosition(280,0,0)        
+      end
 	  end
 
     self.bg:SetNumTiles(self.num_slots)
@@ -298,7 +301,7 @@ function FoodCrafting:OnControl(control, down)
         self.owner.HUD.controls:SetDark(true)
     		SetPause(true)
 
-        self:SetScale(Vector3(0.54, 0.54, 0.54))
+        self:SetScale(Vector3(0.6, 0.6, 0.6))
       end
     end
   else -- not down

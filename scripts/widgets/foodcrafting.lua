@@ -302,9 +302,10 @@ function FoodCrafting:OnControl(control, down)
       end
     end
   else -- not down
-  if control == CONTROL_CANCEL and self._focused then
-    self._focused = false
-	end
+    if control == CONTROL_CANCEL and self._focused then
+      self._focused = false
+  	end
+  end
 end
 
 function FoodCrafting:ScrollUp()

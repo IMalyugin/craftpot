@@ -187,7 +187,7 @@ else
 	AddPrefabPostInitAny(PrefabPostInitAny)
 end
 
-if GLOBAL.TheInput:ControllerAttached() then
+if true then --GLOBAL.TheInput:ControllerAttached()
 	AddClassPostConstruct("screens/playerhud", function(inst)
 		local old_open_controller_inventory = inst.OpenControllerInventory
 		inst.OpenControllerInventory = function(self)

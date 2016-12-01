@@ -280,10 +280,10 @@ function FoodCrafting:OnControl(control, down)
 
   if down then
     if self._focused then
-      if control == CONTROL_MAP_ZOOM_IN or control == CONTROL_MOVE_UP then
+      if control == CONTROL_MAP_ZOOM_IN then
         self:ScrollDown()
         return true
-      elseif control == CONTROL_MAP_ZOOM_OUT or control == CONTROL_MOVE_DOWN then
+      elseif control == CONTROL_MAP_ZOOM_OUT then
         self:ScrollUp()
         return true
       end
@@ -308,6 +308,14 @@ function FoodCrafting:OnControl(control, down)
     if control == CONTROL_CANCEL and self._focused then
       self._focused = false
   	end
+  end
+end
+
+function FoodCrafting:DoControl(control)
+  if control == CONTROL_MOVE_UP then
+    self:ScrollDown()
+  elseif control == CONTROL_MOVE_DOWN then
+    self:ScrollUp()
   end
 end
 

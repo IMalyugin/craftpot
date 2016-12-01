@@ -211,31 +211,19 @@ end)
 
 AddClassPostConstruct("widgets/inventorybar", function(inst)
 	if TheInput:ControllerAttached() then
-		local old_cursor_up = inst.CursorUp
-		inst.CursorUp = function(self)
-			if not inst.owner.HUD.controls.foodcrafting:IsFocused() or TheInput:IsControlPressed(GLOBAL.CONTROL_INVENTORY_UP) then
-				old_cursor_up(self)
-			end
-		end
-
-		local old_cursor_down = inst.CursorDown
-		inst.CursorDown = function(self)
-			if not inst.owner.HUD.controls.foodcrafting:IsFocused() or TheInput:IsControlPressed(GLOBAL.CONTROL_INVENTORY_DOWN) then
-				old_cursor_down(self)
-			end
-		end
-
-		local old_cursor_left = inst.CursorLeft
-		inst.CursorLeft = function(self)
-			if not inst.owner.HUD.controls.foodcrafting:IsFocused() or TheInput:IsControlPressed(GLOBAL.CONTROL_INVENTORY_LEFT) then
-				old_cursor_left(self)
-			end
-		end
-
-		local old_cursor_right = inst.CursorRight
-		inst.CursorRight = function(self)
-			if not inst.owner.HUD.controls.foodcrafting:IsFocused() or TheInput:IsControlPressed(GLOBAL.CONTROL_INVENTORY_RIGHT) then
-				old_cursor_right(self)
+		local actions = {
+			CursorUp=   {GLOBAL.CONTROL_INVENTORY_UP, GLOBAL.CONTROL_MOVE_UP},
+			CursorDown= {GLOBAL.CONTROL_INVENTORY_DOWN, GLOBAL.CONTROL_MOVE_DOWN},
+			CursorLeft= {GLOBAL.CONTROL_INVENTORY_LEFT, GLOBAL.CONTROL_MOVE_LEFT},
+			CursorRight={GLOBAL.CONTROL_INVENTORY_RIGHT, GLOBAL.CONTROL_MOVE_RIGHT}
+		}
+		for action, controls in pairs(actions) do
+			local old_cursor_action = inst[action]
+			inst[action] = function(self)
+				if not inst.owner.HUD.controls.foodcrafting:IsFocused() or TheInput:IsControlPressed(controls[0]) then
+				old_cursor_action(self)
+			else
+				inst.owner.HUD.controls.foodcrafting:DoControl(controls[1])
 			end
 		end
 	end

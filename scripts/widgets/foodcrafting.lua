@@ -301,7 +301,10 @@ function FoodCrafting:OnControl(control, down)
         self:SetScale(Vector3(0.54, 0.54, 0.54))
       end
     end
-  end
+  else -- not down
+  if control == CONTROL_CANCEL and self._focused then
+    self._focused = false
+	end
 end
 
 function FoodCrafting:ScrollUp()

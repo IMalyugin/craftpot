@@ -221,7 +221,8 @@ AddClassPostConstruct("widgets/inventorybar", function(inst)
 			local old_cursor_action = inst[action]
 			inst[action] = function(self)
 				if not inst.owner.HUD.controls.foodcrafting:IsFocused() or TheInput:IsControlPressed(controls[0]) then
-				old_cursor_action(self)
+					old_cursor_action(self)
+				end
 			else
 				inst.owner.HUD.controls.foodcrafting:DoControl(controls[1])
 			end

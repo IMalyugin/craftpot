@@ -288,15 +288,15 @@ function FoodCrafting:OnControl(control, down)
     if control == CONTROL_OPEN_INVENTORY then
       if self._focused then
         self._focused = false
-        self.owner.HUD.controls:SetDark(false)
-        SetPause(false)
+        --self.owner.HUD.controls:SetDark(false)
+        --SetPause(false)
 
         --self.focusItem:SetScale(Vector3(1.1, 1.1, 1.1))
         self:SetScale(Vector3(0.5, 0.5, 0.5))
       else
         self._focused = true
-        self.owner.HUD.controls:SetDark(true)
-    		SetPause(true)
+        --self.owner.HUD.controls:SetDark(true)
+    		--SetPause(true)
 
         self:SetScale(Vector3(0.54, 0.54, 0.54))
       end

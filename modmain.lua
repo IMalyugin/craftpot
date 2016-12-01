@@ -213,28 +213,28 @@ AddClassPostConstruct("widgets/inventorybar", function(inst)
 	if TheInput:ControllerAttached() then
 		local old_cursor_up = inst.CursorUp
 		inst.CursorUp = function(self)
-			if not inst.owner.HUD.controls.foodcrafting:IsFocused() || TheInput:IsControlPressed(CONTROL_INVENTORY_UP) then
+			if not inst.owner.HUD.controls.foodcrafting:IsFocused() or TheInput:IsControlPressed(CONTROL_INVENTORY_UP) then
 				old_cursor_up(self)
 			end
 		end
 
 		local old_cursor_down = inst.CursorDown
 		inst.CursorDown = function(self)
-			if not inst.owner.HUD.controls.foodcrafting:IsFocused() || TheInput:IsControlPressed(CONTROL_INVENTORY_DOWN) then
+			if not inst.owner.HUD.controls.foodcrafting:IsFocused() or TheInput:IsControlPressed(CONTROL_INVENTORY_DOWN) then
 				old_cursor_down(self)
 			end
 		end
 
 		local old_cursor_left = inst.CursorLeft
 		inst.CursorLeft = function(self)
-			if not inst.owner.HUD.controls.foodcrafting:IsFocused() || TheInput:IsControlPressed(CONTROL_INVENTORY_LEFT) then
+			if not inst.owner.HUD.controls.foodcrafting:IsFocused() or TheInput:IsControlPressed(CONTROL_INVENTORY_LEFT) then
 				old_cursor_left(self)
 			end
 		end
 
 		local old_cursor_right = inst.CursorRight
 		inst.CursorRight = function(self)
-			if not inst.owner.HUD.controls.foodcrafting:IsFocused() || TheInput:IsControlPressed(CONTROL_INVENTORY_RIGHT) then
+			if not inst.owner.HUD.controls.foodcrafting:IsFocused() or TheInput:IsControlPressed(CONTROL_INVENTORY_RIGHT) then
 				old_cursor_right(self)
 			end
 		end
